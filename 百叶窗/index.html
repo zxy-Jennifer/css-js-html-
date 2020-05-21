@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百叶窗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        ul,
+        ol {
+            list-style: none;
+        }
+
+        .main {
+            width: 850px;
+            height: 320px;
+            margin: 150px auto;
+            overflow: hidden;
+        }
+
+        li {
+            width: 160px;
+            float: left;
+            border-left: 1px solid #fff;
+            position: relative;
+            transition: all 1s;
+        }
+
+        li img {
+            /* width: 100%; */
+            height: 320px;
+        }
+
+        .flag {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .main:hover li {
+            width: 40px;
+            cursor: pointer;
+        }
+
+        .main li:hover {
+            width: 450px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="main">
+        <li>
+            <img src="img/1.jpeg" alt="">
+            <div class="flag">风吹云不散</div>
+        </li>
+        <li>
+            <img src="img/2.jpg" alt="">
+            <div class="flag">长久郎相伴</div>
+        </li>
+        <li>
+            <img src="img/3.jpg" alt="">
+            <div class="flag">相思赋予谁</div>
+        </li>
+        <li>
+            <img src="img/4.jpg" alt="">
+            <div class="flag">小辫儿张云雷</div>
+        </li>
+        <li>
+            <img src="img/5.jpg" alt="">
+            <div class="flag">偶✌</div>
+        </li>
+    </ul>
+</body>
+
+</html>

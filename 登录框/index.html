@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            /* 居中 */
+            justify-content: center;
+            align-items: center;
+            background-color: #2c3e50;
+        }
+
+        .container {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 300px;
+            height: 450px;
+            border-radius: 20px;
+            background-color: #34495e;
+            box-shadow: 15px 15px 10px rgba(33, 45, 58, 0.3);
+            overflow: hidden;
+        }
+
+        .container h1 {
+            color: #fff;
+            z-index: 1;
+            font-weight: normal;
+        }
+
+        .container form {
+            width: 300px;
+            height: 200px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .container form p text {
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+            top: 5px;
+            font-size: 18px;
+            /* font-weight: bold; */
+            color: #fff;
+        }
+
+        .container form .tbx {
+            width: 150px;
+            height: 40px;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid #fff;
+            background: none;
+        }
+
+        .container form .tbx::placeholder {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .container form .sub {
+            width: 150px;
+            height: 30px;
+            border-radius: 15px;
+            background: none;
+            border: 1px solid #fff;
+            outline: none;
+            color: #fff;
+        }
+
+        /* 鼠标进入的样式 */
+        .container .in {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: #3498bd;
+            transform: translate(-50%, -50%);
+            animation: in 0.5s ease-out forwards;
+        }
+
+        /* 鼠标离开的样式 */
+        .container .out {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 1200px;
+            height: 1200px;
+            border-radius: 50%;
+            background: #3498bd;
+            transform: translate(-50%, -50%);
+            animation: out 0.5s ease-out forwards;
+        }
+
+        /* 鼠标进入的动画 */
+        @keyframes in {
+            0% {
+                width: 0;
+                height: 0;
+            }
+
+            100% {
+                width: 1200px;
+                height: 1200px;
+            }
+        }
+
+        /* 设置鼠标离开的动画 */
+        @keyframes out {
+            0% {
+                width: 1200px;
+                height: 1200px;
+            }
+
+            100% {
+                width: 0;
+                height: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>爱你哟</h1>
+        <form action="">
+            <p><text>账号：</text><input type="text" class="tbx" placeholder=""></p>
+            <p><text>密码：</text><input type="password" class="tbx" placeholder=""></p>
+            <input type="submit" class="sub" value="提交">
+        </form>
+    </div>
+    <script>
+        const con = document.querySelector('.container')
+        let isIn = true
+        let isOut = false
+        var span
+        con.addEventListener('mouseenter', (e) => {
+            if (isIn) {
+                // e.clientX：鼠标距离浏览器页面边框的位置
+                // e.target.offsetLeft：父盒子的左边框距离浏览器页面边框的位置
+                let inX = e.clientX - e.target.offsetLeft;
+                let inY = e.clientY - e.target.offsetTop
+                // console.log('inX, inY', inX, inY)
+                let el = document.createElement('span')
+                el.style.left = inX + 'px';
+                el.style.top = inY + 'px';
+                con.appendChild(el)
+                span = document.querySelector('.container span')
+                span.className = "in"
+                isIn = false;
+                isOut = true
+            }
+        })
+        con.addEventListener('mouseleave', (e) => {
+            if (isOut) {
+                let outX = e.clientX - e.target.offsetLeft;
+                let outY = e.clientY - e.target.offsetTop
+                // console.log('outX, outY', outX, outY)
+                span.style.left = outX + 'px';
+                span.style.top = outY + 'px';
+                span.className = "out";
+                isIn = true;
+                isOut = false;
+                setTimeout(() => {
+                    con.removeChild(span)
+                }, 500)
+            }
+        })
+    </script>
+</body>
+
+</html>

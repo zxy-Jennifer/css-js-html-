@@ -1,0 +1,189 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #10aeb5;
+}
+
+li {
+    list-style: none;
+}
+
+i {
+    font-style: normal;
+}
+
+span {
+    cursor: pointer;
+}
+
+.container {
+    /* width: 10rem; */
+    width: 6rem;
+    margin: 20px auto;
+    padding: 0.15625rem 0;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 15px;
+}
+
+.brief_header {
+    width: 6.375rem;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* 海外疫情 */
+.brief_header h2 {
+    float: left;
+    height: 0.46875rem;
+    line-height: 0.46875rem;
+    margin: 0 .15625rem;
+    font-size: .28125rem;
+}
+
+/* 更新时间 */
+.brief_header p {
+    float: left;
+    height: 0.46875rem;
+    line-height: 0.46875rem;
+    color: #aaa;
+    font-size: .15625rem;
+}
+
+.brief_body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.brief_body .number {
+    font-size: .234375rem;
+}
+
+.brief_body .item {
+    text-align: center;
+    width: 1.09375rem;
+    height: .3125rem;
+    line-height: .3125rem;
+    background-color: rgb(214, 212, 212);
+    border-radius: .078125rem;
+}
+
+.container .map_info {
+    width: 5.6125rem;
+    height: 2.921875rem;
+    margin: 0.3125rem auto;
+}
+
+.brief .map_tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brief .map_tab span {
+    width: 0.99375rem;
+    height: .36875rem;
+    font-size: .15625rem;
+    line-height: .36875rem;
+    background-color: #f4f5f6;
+    margin: 0 0.046875rem;
+}
+
+.brief .map_tab .cur {
+    color: #ffb1b2;
+    border: .015625rem solid #ffb1b2;
+    background-color: #fff;
+}
+
+.allConfirm .number {
+    color: rgb(255, 72, 0);
+}
+
+.allConfirm b {
+    color: rgb(255, 60, 0);
+}
+
+.nowConfirm .number {
+    color: rgb(255, 145, 0);
+}
+
+.nowConfirm b {
+    color: rgb(255, 129, 11);
+}
+
+.cureConfirm .number {
+    color: rgb(24, 240, 240);
+}
+
+.cureConfirm b {
+    color: rgb(21, 240, 240);
+}
+
+.container .map_header {
+    text-align: left;
+    margin: .35625rem;
+    font-size: .28125rem;
+}
+
+/* 趋势 */
+.tendency .map_tab {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 0.246875rem;
+}
+
+.tendency .map_tab span {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 0.99375rem;
+    height: .46875rem;
+    font-size: .15625rem;
+    /* line-height: .26875rem; */
+    /* background-color: yellow; */
+    margin: 0 0.046875rem;
+}
+
+/* .tendency .map_tab span p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+.tendency .map_tab span.cur {
+    color: #ffb1b2;
+    border: .015625rem solid #ffb1b2;
+    background-color: #fff;
+}
+
+.tendency .map_tab span:nth-child(n+2) {
+    font-size: .15625rem;
+    height: .18875rem;
+}
+
+.tendency .map_tab span:nth-child(n+2) p {
+    /* 缩放 */
+    transform: scale(0.9);
+}
+
+/* top10 */
+
+
+element.style {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 535px;
+    height: 245px;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    padding: 0px;
+    margin: 0px;
+    border-width: 0px;
+}
