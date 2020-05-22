@@ -30,6 +30,8 @@ $.when($.ajax({
     map()
     // 疫情趋势
     tendency()
+    // 昨日新增top10
+    top10()
 })
 
 function title() {
@@ -187,9 +189,324 @@ function map() {
     })
 }
 
-// function pp() {
-//     let p = new Promise(function (resolve, reject) {
+function tendency() {
+    // 获取历史数据
+    var globalDailyHistory = foreignData.globalDailyHistory;
+    // 设置容器分别保存数据
+    var num = [],
+        date = [];
+    globalDailyHistory.reverse()
+    globalDailyHistory.shift()
 
-//     })
-// }
-function tendency() {}
+    $.each(globalDailyHistory, function (i, v) {
+        if (num.length < 27 && i % 3 == 0) {
+            num.push(v.all.newAddConfirm);
+            date.push(v.date)
+        }
+    })
+    console.log(num);
+    console.log(date);
+
+
+    // 初始化echarts实例
+    var myChart = echarts.init(document.querySelector(".tendency .map_info"))
+    // 设置配置项
+    var option = {
+        tooltip: {
+            trigger: "item",
+            formatter: function (param) {
+                return param.seriesName + "<br>" + param.marker + " " + param.name + " " + param.value
+            }
+        },
+        title: {
+            text: "海外新增确诊趋势"
+        },
+        legend: {
+            icon: "rect",
+            itemWidth: 12,
+            itemHeight: 12,
+            right: 20,
+            top: 20,
+            orient: 'horizontal',
+            textStyle: {
+                padding: [3, 0, 0, 0]
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: date.reverse(),
+            axisLabel: {
+                interval: 0,
+                rotate: 45,
+                fontSize: 10,
+                color: "#ccc"
+            }
+        },
+        yAxis: {
+            type: 'value',
+            min: 0,
+            max: 120000,
+            axisLine: {
+                show: false
+            },
+            axisLabel: {
+                formatter: function (value) {
+                    return value.toString()
+                }
+            },
+            axisTick: {
+                length: 0
+            }
+        },
+        series: [{
+            name: "新增确诊",
+            type: 'line',
+            data: num.reverse(),
+            smooth: true,
+            lineStyle: {
+                color: "#ff1d00"
+            }
+        }]
+    };
+    myChart.setOption(option);
+    $(".tendency .map_tab span").eq(0).click(function () {
+        var num = [],
+            date = [];
+
+        $.each(globalDailyHistory, function (i, v) {
+            if (num.length < 27 && i % 3 == 0) {
+                num.push(v.all.newAddConfirm);
+                date.push(v.date)
+            }
+        })
+        console.log(num);
+        console.log(date);
+
+
+        // 初始化echarts实例
+        // var myChart = echarts.init(document.querySelector(".tendency .map_info"))
+        // 设置配置项
+        var option = {
+            tooltip: {
+                trigger: "item",
+                formatter: function (param) {
+                    return param.seriesName + "<br>" + param.marker + " " + param.name + " " + param.value
+                }
+            },
+            title: {
+                text: "海外新增确诊趋势"
+            },
+            legend: {
+                icon: "rect",
+                itemWidth: 12,
+                itemHeight: 12,
+                right: 20,
+                top: 20,
+                orient: 'horizontal',
+                textStyle: {
+                    padding: [3, 0, 0, 0]
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: date.reverse(),
+                axisLabel: {
+                    interval: 0,
+                    rotate: 45,
+                    fontSize: 10,
+                    color: "#ccc"
+                }
+            },
+            yAxis: {
+                type: 'value',
+                min: 0,
+                max: 120000,
+                axisLine: {
+                    show: false
+                },
+                axisLabel: {
+                    formatter: function (value) {
+                        return value.toString()
+                    }
+                },
+                axisTick: {
+                    length: 0
+                }
+            },
+            series: [{
+                name: "新增确诊",
+                type: 'line',
+                data: num.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#ff1d00"
+                }
+            }]
+        };
+
+        myChart.clear()
+        myChart.setOption(option)
+    })
+    $(".tendency .map_tab span").eq(1).click(function () {
+        // 设置容器保存数据
+        var num1 = [],
+            num2 = [],
+            date = [];
+
+        $.each(globalDailyHistory, function (i, v) {
+            if (num1.length < 27 && i % 3 == 0) {
+                num1.push(v.all.confirm + v.all.heal + v.all.dead);
+                num2.push(v.all.confirm)
+                date.push(v.date)
+            }
+        })
+        console.log(num1);
+        console.log(num2);
+        option.series = [{
+                name: "累计确诊",
+                type: 'line',
+                data: num1.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#c1021b"
+                }
+            },
+            {
+                name: "现有确诊",
+                type: 'line',
+                data: num2.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#264654"
+                }
+            }
+        ];
+        option.yAxis.max = 3500000;
+        option.yAxis.splitNumber = 8
+        option.yAxis.axisLabel.formatter = function (value) {
+            return value.toString()
+        }
+        myChart.clear()
+        myChart.setOption(option)
+    })
+    $(".tendency .map_tab span").eq(2).click(function () {
+        // 设置容器保存数据
+        var num1 = [],
+            num2 = [],
+            date = [];
+        $.each(globalDailyHistory, function (i, v) {
+            if (num1.length < 27 && i % 3 == 0) {
+                num1.push(v.all.dead);
+                num2.push(v.all.heal)
+                date.push(v.date)
+            }
+        })
+        console.log(num1);
+        console.log(num2);
+        option.series = [{
+                name: "死亡数",
+                type: 'line',
+                data: num1.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#c1021b"
+                }
+            },
+            {
+                name: "治愈数",
+                type: 'line',
+                data: num2.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#264654"
+                }
+            }
+        ];
+        option.yAxis.max = 600000;
+        option.yAxis.splitNumber = 7
+        option.yAxis.axisLabel.formatter = function (value) {
+            return value.toString()
+        }
+        myChart.clear()
+        myChart.setOption(option)
+    })
+    $(".tendency .map_tab span").eq(3).click(function () {
+        // 设置容器保存数据
+        var num1 = [],
+            num2 = [],
+            date = [];
+
+        $.each(globalDailyHistory, function (i, v) {
+            if (num1.length < 27 && i % 3 == 0) {
+                num1.push(v.all.deadRate);
+                num2.push(v.all.healRate)
+                date.push(v.date)
+            }
+        })
+        console.log(num1);
+        console.log(num2);
+        option.series = [{
+                name: "死亡率",
+                type: 'line',
+                data: num1.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#c1021b"
+                }
+            },
+            {
+                name: "确证率",
+                type: 'line',
+                data: num2.reverse(),
+                smooth: true,
+                lineStyle: {
+                    color: "#264654"
+                }
+            }
+        ];
+        option.yAxis.max = 35;
+        option.yAxis.splitNumber = 7
+        option.yAxis.axisLabel.formatter = function (value) {
+            return value + "%"
+        }
+        myChart.clear()
+        myChart.setOption(option)
+    })
+}
+// 昨日新增top10
+function top10() {
+    var myChart = echarts.init(document.querySelector(".addTop10 .map_info"))
+    var num = []
+    var nation = []
+    $.each(foreignData.countryAddConfirmRankList, function (i, v) {
+        num.push(v.addConfirm)
+        nation.push(v.nation)
+    })
+    var option = {
+        title: {
+            text: "默认文本"
+        },
+        xAxis: {
+            type: 'category',
+            data: nation,
+            axisLabel: {
+                interval: 0,
+                rotate: 45
+            }
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            type: 'bar',
+            data: num,
+            barWidth: 18,
+            itemStyle: {
+                emphasis: {
+                    color: "#ffdf4d"
+                }
+            }
+        }]
+    }
+    myChart.setOption(option)
+}
